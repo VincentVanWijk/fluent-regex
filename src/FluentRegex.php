@@ -16,12 +16,15 @@ class FluentRegex
 
     }
 
-    public function exactly(string $exactly)
+    public function exactly(string $exactly):FluentRegex
     {
         $this->regex .= $exactly;
+
+        return $this;
     }
 
-    public function match(){
+    public function match():array
+    {
         $this->regex = $this->delimiter . $this->regex . $this->delimiter;
 
         return preg_match($this->regex, $this->subject);
