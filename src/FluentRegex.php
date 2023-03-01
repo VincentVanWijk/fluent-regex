@@ -58,7 +58,7 @@ class FluentRegex
         return $this;
     }
 
-    public function toRegexString()
+    public function toRegexString(): string
     {
         return $this->regex;
     }

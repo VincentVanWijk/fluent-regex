@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'VincentVanWijk\\FluentRegex\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn(string $modelName) => 'VincentVanWijk\\FluentRegex\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 
@@ -26,7 +26,7 @@ class TestCase extends Orchestra
 
     public function getEnvironmentSetUp($app)
     {
-        config()->set('database.default', 'testing');
+//        config()->set('database.default', 'testing');
 
         /*
         $migration = include __DIR__.'/../database/migrations/create_fluent-regex_table.php.stub';
