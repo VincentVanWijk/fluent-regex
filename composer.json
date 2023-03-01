@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "vincentvanwijk/fluent-regex",
+    "description": "A package to fluently create regular expressions",
     "keywords": [
-        ":vendor_name",
+        "vincentvanwijk",
         "laravel",
-        ":package_slug"
+        "fluent-regex"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/vincentvanwijk/fluent-regex",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Vincent van Wijk",
+            "email": "vincentvanwijk@hotmail.nl",
             "role": "Developer"
         }
     ],
@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "VincentVanWijk\\FluentRegex\\": "src",
+            "VincentVanWijk\\FluentRegex\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "VincentVanWijk\\FluentRegex\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -61,10 +61,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "VincentVanWijk\\FluentRegex\\FluentRegexServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "FluentRegex": "VincentVanWijk\\FluentRegex\\Facades\\FluentRegex"
             }
         }
     },

@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace VincentVanWijk\FluentRegex\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class FluentRegexCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'fluent-regex';
 
     public $description = 'My command';
 
