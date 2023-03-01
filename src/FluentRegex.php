@@ -26,7 +26,8 @@ class FluentRegex
     public function match():array
     {
         $this->regex = $this->delimiter . $this->regex . $this->delimiter;
-
-        return preg_match($this->regex, $this->subject);
+        $matches = [];
+        preg_match($this->regex, $this->subject, $matches);
+        return $matches;
     }
 }
