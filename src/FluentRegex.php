@@ -20,6 +20,7 @@ class FluentRegex
         $this->regex = $this->delimiter . $this->regex . $this->delimiter;
         $matches = [];
         preg_match($this->regex, $this->subject, $matches);
+
         return $matches;
     }
 
@@ -37,14 +38,14 @@ class FluentRegex
         return preg_quote($string, $this->delimiter);
     }
 
-    public function exactly(string $exactly): FluentRegex
+    public function exactly(string $exactly): static
     {
         $this->regex .= $this->escape($exactly);
 
         return $this;
     }
 
-    public function characters(...$characters)
+    public function characters(...$characters): static
     {
         $this->regex .= '[';
 
