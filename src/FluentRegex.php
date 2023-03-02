@@ -1,9 +1,16 @@
 <?php
+declare(strict_types=1);
 
 namespace VincentVanWijk\FluentRegex;
 
+use VincentVanWijk\FluentRegex\Traits\CharacterClasses;
+use VincentVanWijk\FluentRegex\Traits\GroupConstructs;
+
 class FluentRegex
 {
+    use CharacterClasses;
+    use GroupConstructs;
+
     private string $subject;
 
     private string $delimiter;
@@ -18,50 +25,28 @@ class FluentRegex
 
     public function match(): array
     {
-        $this->regex = $this->delimiter.$this->regex.$this->delimiter;
         $matches = [];
-        preg_match($this->regex, $this->subject, $matches);
+        preg_match($this->get(), $this->subject, $matches);
 
         return $matches;
     }
 
     public function matchAll(): array
     {
-        $this->regex = $this->delimiter.$this->regex.$this->delimiter;
-
         $matches = [];
-        preg_match_all($this->regex, $this->subject, $matches);
+        preg_match_all($this->get(), $this->subject, $matches);
 
         return $matches;
     }
 
-    public function escape($string): string
+    public function escape(string $string): string
     {
         return preg_quote($string, $this->delimiter);
     }
 
-    public function exactly(string $exactly): static
+    public function get(bool $withoutDelimiters = false): string
     {
-        $this->regex .= $this->escape($exactly);
 
-        return $this;
-    }
-
-    public function characters(...$characters): static
-    {
-        $this->regex .= '[';
-
-        foreach ($characters as $char) {
-            $this->regex .= $this->escape($char);
-        }
-
-        $this->regex .= ']';
-
-        return $this;
-    }
-
-    public function toRegexString(): string
-    {
-        return $this->regex;
+        return $withoutDelimiters ? $this->regex : $this->delimiter . $this->regex . $this->delimiter;
     }
 }
