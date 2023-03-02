@@ -40,7 +40,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "VincentVanWijk\\FluentRegex\\Tests\\": "Tests"
+            "VincentVanWijk\\FluentRegex\\Tests\\": "tests"
         }
     },
     "scripts": {
