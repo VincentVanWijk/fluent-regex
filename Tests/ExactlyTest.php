@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use VincentVanWijk\FluentRegex\FluentRegex;
@@ -47,4 +48,3 @@ it('escapes the correct characters', function () {
     expect($regexString)
         ->toBe('/bar\.\*/');
 });
-

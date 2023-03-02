@@ -8,8 +8,8 @@ trait GroupConstructs
     {
         $regexString = call_user_func($func, $this)
             ->get(withoutDelimiters: true);
-        
-        $this->regex .= '(' . $regexString . ')';
+
+        $this->regex .= '('.$regexString.')';
 
         return $this;
     }

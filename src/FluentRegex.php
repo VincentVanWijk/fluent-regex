@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace VincentVanWijk\FluentRegex;
@@ -46,7 +47,6 @@ class FluentRegex
 
     public function get(bool $withoutDelimiters = false): string
     {
-
-        return $withoutDelimiters ? $this->regex : $this->delimiter . $this->regex . $this->delimiter;
+        return $withoutDelimiters ? $this->regex : $this->delimiter.$this->regex.$this->delimiter;
     }
 }
