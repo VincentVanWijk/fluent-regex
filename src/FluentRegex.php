@@ -24,7 +24,7 @@ class FluentRegex
 
     protected bool $not = false;
 
-    public function __construct(string $subject, string $delimiter = '/')
+    public function __construct(string $subject = '', string $delimiter = '/')
     {
         $this->subject = $subject;
         $this->delimiter = $delimiter;
