@@ -8,6 +8,9 @@ use Exception;
 use VincentVanWijk\FluentRegex\Traits\CharacterClasses;
 use VincentVanWijk\FluentRegex\Traits\GroupConstructs;
 
+/**
+ * @property FluentRegex $not
+ */
 class FluentRegex
 {
     use CharacterClasses;
