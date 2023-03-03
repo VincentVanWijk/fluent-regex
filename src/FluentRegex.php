@@ -7,6 +7,7 @@ namespace VincentVanWijk\FluentRegex;
 use Exception;
 use VincentVanWijk\FluentRegex\Traits\CharacterClasses;
 use VincentVanWijk\FluentRegex\Traits\GroupConstructs;
+use VincentVanWijk\FluentRegex\Traits\Quantifiers;
 
 /**
  * @property FluentRegex $not
@@ -15,6 +16,7 @@ class FluentRegex
 {
     use CharacterClasses;
     use GroupConstructs;
+    use Quantifiers;
 
     private string $subject;
 

@@ -9,7 +9,7 @@ it('returns the correct regex', function () {
 
     $regex->exactly('foo')
         ->anyCharacterOf(' baz')
-        ->capture(function (FluentRegex $regex) {
+        ->capture(function ($regex) {
             return $regex->exactly('bar')
                 ->not->alphaNumeric()
                 ->exactly('baz');
@@ -24,7 +24,7 @@ it('returns the correct match', function () {
     $regex = new FluentRegex('foo bar baz');
     $match = $regex->exactly('foo')
         ->anyCharacterOf(' baz')
-        ->capture(function (FluentRegex $regex) {
+        ->capture(function ($regex) {
             return $regex->exactly('bar')
                 ->not->alphaNumeric()
                 ->exactly('baz');
@@ -40,7 +40,7 @@ it('returns the correct matches', function () {
     $regex = new FluentRegex('foo bar baz');
     $matches = $regex->exactly('foo')
         ->anyCharacterOf(' baz')
-        ->capture(function (FluentRegex $regex) {
+        ->capture(function ($regex) {
             return $regex->exactly('bar')
                 ->not->alphaNumeric()
                 ->exactly('baz');

@@ -22,7 +22,7 @@ The first parameter is the string that the regex is performed on.
 The second parameter is the delimiter, which defaults to `'/'`.
 
 ```php
-use  VincentVanWijk\FluentRegex\FluentRegex;
+use VincentVanWijk\FluentRegex\FluentRegex;
 $fluentRegex = new FluentRegex("Let's do some regex!");
 ```
 
@@ -42,7 +42,7 @@ Character that need it will be escaped automatically.
 $fluentRegex->exactly("regex!")
 ```
 
-Most methods can be negated usig the `not` modifier.
+Most methods can be negated using the `not` modifier.
 
 ```php
 // '/[a-zA-Z]/'
@@ -61,31 +61,31 @@ On this object you can continue to chain methods to create the sub-pattern for t
 // '/Let's ([abcd][mnop]) some regex\!/'
 $fluentRegex->exactly("Let's ")      
     ->capture(function (FluentRegex $regex) {
-             return $regex->anyCharacterOf('abcd') 
-             ->anyCharacterOf('mnop')       
-        })
-        ->exactly(' some regex!');                                   
+         return $regex->anyCharacterOf('abcd') 
+         ->anyCharacterOf('mnop')       
+    })
+    ->exactly(' some regex!');                             
 ```
 
 ## Returning results
 
 You can call the `match()` method to return an array with the matches.  
-The first index [0] contains the text that matched the full pattern,
-The second index [1] will contain the text that matched the first subpattern, and so on.
+The first index `[0]` contains the text that matched the full pattern,
+The second index `[1]` will contain the text that matched the first subpattern, and so on.
 
 ```php
 $fluentRegex->match();
 ```
 
-Or call the `matchAll()` method to return an multidimensional array with all matches.
-The first index [0] is an array of full pattern matches
-The second index [1] is an array of strings matched by the first subpattern, and so on.
+Or call the `matchAll()` method to return a multidimensional array with all matches.
+The first index `[0]` is an array of full pattern matches
+The second index `[1]` is an array of strings matched by the first subpattern, and so on.
 
 ```php
 $fluentRegex->matchAll();
 ```
 
-To get the regex in it's string representation, call
+To get the regex in its string representation, call
 
 ```php
 $fluentRegex->get();
