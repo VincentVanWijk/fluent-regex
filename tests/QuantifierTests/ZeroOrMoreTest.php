@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use VincentVanWijk\FluentRegex\FluentRegex;
 
-it('returns the correct regex', function() {
+it('returns the correct regex', function () {
     $regex = new FluentRegex('foobarbaz');
 
     $regex->exactly('foo')
@@ -16,7 +16,7 @@ it('returns the correct regex', function() {
         ->toBe('/foo*barbaz/');
 });
 
-it('returns the correct match', function() {
+it('returns the correct match', function () {
     $regex = new FluentRegex('foooobarbaz');
 
     $match = $regex->exactly('foo')
@@ -29,7 +29,7 @@ it('returns the correct match', function() {
         ->toBe(['foooobarbaz']);
 });
 
-it('returns the correct matches', function() {
+it('returns the correct matches', function () {
     $regex = new FluentRegex('fbarbaz fobarbaz foooobarbaz');
 
     $match = $regex->exactly('f')
