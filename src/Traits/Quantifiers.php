@@ -32,7 +32,6 @@ trait Quantifiers
 
     public function nTimes(int $times): static
     {
-        $string = $this->escape($string);
         $this->addToRegex('{'.$times.'}');
 
         return $this;
@@ -47,6 +46,13 @@ trait Quantifiers
     }
 
     public function nTimesOrMore(int $times): static
+    {
+        $this->addToRegex($string.'{'.$times.',}');
+
+        return $this;
+    }
+
+    public function BetweenNTimes(int $times): static
     {
         $this->addToRegex($string.'{'.$times.',}');
 
