@@ -13,10 +13,11 @@ trait CharacterClasses
         return $this;
     }
 
-    public function anyCharacterOf(...$characters): static
+    public function anyCharacterOf(array|string ...$characters): static
     {
         $this->addToRegex($this->not ? '[^' : '[');
 
+        /** @var string $char */
         foreach ($characters as $char) {
             $this->addToRegex($this->escape($char));
         }

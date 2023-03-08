@@ -47,14 +47,14 @@ trait Quantifiers
 
     public function nTimesOrMore(int $times): static
     {
-        $this->addToRegex($string.'{'.$times.',}');
+        $this->addToRegex('{'.$times.',}');
 
         return $this;
     }
 
     public function BetweenNTimes(int $times): static
     {
-        $this->addToRegex($string.'{'.$times.',}');
+        $this->addToRegex('{'.$times.',}');
 
         return $this;
     }

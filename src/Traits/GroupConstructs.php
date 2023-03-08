@@ -10,8 +10,9 @@ trait GroupConstructs
 {
     public function capture(callable $func): static
     {
-        $regexString = call_user_func($func, new FluentRegex(''))
-            ->get(withoutDelimiters: true);
+        /** @var FluentRegex $regex */
+        $regex = call_user_func($func, new FluentRegex(''));
+        $regexString = $regex->get(withoutDelimiters: true);
 
         $this->regex .= '('.$regexString.')';
 
