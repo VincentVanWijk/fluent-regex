@@ -45,4 +45,11 @@ trait Quantifiers
 
         return $this;
     }
+
+    public function nTimesOrMore(int $times): static
+    {
+        $this->addToRegex($string.'{'.$times.',}');
+
+        return $this;
+    }
 }
