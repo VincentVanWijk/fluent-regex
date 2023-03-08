@@ -40,7 +40,4 @@ it('returns the correct matches', function () {
     expect($match)
         ->toBeArray()
         ->toBe([['fooobarbaz']]);
-
-    //TEST COMMENT FOR GITHUB ACTION
-    //TEST2 COMMENT FOR GITHUB ACTION
 });
