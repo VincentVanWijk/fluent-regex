@@ -42,4 +42,5 @@ it('returns the correct matches', function () {
         ->toBe([['fooobarbaz']]);
 
     //TEST COMMENT FOR GITHUB ACTION
+    //TEST2 COMMENT FOR GITHUB ACTION
 });
