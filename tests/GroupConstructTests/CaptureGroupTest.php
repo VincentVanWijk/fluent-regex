@@ -65,4 +65,6 @@ it('escapes the correct characters', function () {
     $regexString = $regex->get();
     expect($regexString)
         ->toBe('/bar\.\*/');
+
+    //test
 });
