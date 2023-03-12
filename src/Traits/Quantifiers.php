@@ -17,7 +17,7 @@ trait Quantifiers
     public function zeroOrMore(string $string = ''): static
     {
         $string = $this->escape($string);
-        $this->addToRegex($string.'*');
+        $this->addToRegex($string.'*'.($this->lazy ? '?' : ''));
 
         return $this;
     }
@@ -25,7 +25,7 @@ trait Quantifiers
     public function oneOrMore(string $string = ''): static
     {
         $string = $this->escape($string);
-        $this->addToRegex($string.'+');
+        $this->addToRegex($string.'+'.($this->lazy ? '?' : ''));
 
         return $this;
     }
@@ -52,9 +52,9 @@ trait Quantifiers
         return $this;
     }
 
-    public function BetweenNTimes(int $times): static
+    public function betweenNTimes(int $from, int $to): static
     {
-        $this->addToRegex('{'.$times.',}');
+        $this->addToRegex('{'.$from.','.$to.'}');
 
         return $this;
     }

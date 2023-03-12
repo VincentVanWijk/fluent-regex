@@ -11,6 +11,7 @@ use VincentVanWijk\FluentRegex\Traits\Quantifiers;
 
 /**
  * @property FluentRegex $not
+ * @property FluentRegex $lazy
  */
 class FluentRegex
 {
@@ -26,12 +27,17 @@ class FluentRegex
 
     protected bool $not = false;
 
+    protected bool $lazy = false;
+
     public function __construct(string $subject = '', string $delimiter = '/')
     {
         $this->subject = $subject;
         $this->delimiter = $delimiter;
     }
 
+    /**
+     * @throws Exception
+     */
     public function __get(string $name): static
     {
         if ($name == 'not') {
@@ -40,7 +46,13 @@ class FluentRegex
             return $this;
         }
 
-        return $this;
+        if ($name == 'lazy') {
+            $this->lazy = true;
+
+            return $this;
+        }
+
+        throw new Exception('Property $'.$name.' does not exist.');
     }
 
     /**
@@ -50,6 +62,10 @@ class FluentRegex
     {
         if ($name == 'not') {
             throw new Exception('Cannot set value of property $not.');
+        }
+
+        if ($name == 'lazy') {
+            throw new Exception('Cannot set value of property $lazy.');
         }
     }
 
@@ -79,15 +95,16 @@ class FluentRegex
         return $withoutDelimiters ? $this->regex : $this->delimiter.$this->regex.$this->delimiter;
     }
 
-    private function resetNot(): void
+    private function reset(): void
     {
         $this->not = false;
+        $this->lazy = false;
     }
 
     protected function addToRegex(string $string): static
     {
         $this->regex .= $string;
-        $this->resetNot();
+        $this->reset();
 
         return $this;
     }
