@@ -23,7 +23,7 @@ it('returns the correct match', function () {
 });
 
 it('returns the correct matches', function () {
-    $regex = new FluentRegex('foo bar barry FOO');
+    $regex = new FluentRegex('foo bar! barry? FOO');
     $matches = $regex->letter()->matchAll();
 
     expect($matches)

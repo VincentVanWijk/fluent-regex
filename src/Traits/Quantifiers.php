@@ -6,15 +6,15 @@ namespace VincentVanWijk\FluentRegex\Traits;
 
 trait Quantifiers
 {
-    public function zeroOrOne(string $string = ''): static
+    public function zeroOrOneTime(string $string = ''): static
     {
         $string = $this->escape($string);
-        $this->addToRegex($string.'?');
+        $this->addToRegex($string.'?'.($this->lazy ? '?' : ''));
 
         return $this;
     }
 
-    public function zeroOrMore(string $string = ''): static
+    public function zeroOrMoreTimes(string $string = ''): static
     {
         $string = $this->escape($string);
         $this->addToRegex($string.'*'.($this->lazy ? '?' : ''));
@@ -22,7 +22,7 @@ trait Quantifiers
         return $this;
     }
 
-    public function oneOrMore(string $string = ''): static
+    public function oneOrMoreTimes(string $string = ''): static
     {
         $string = $this->escape($string);
         $this->addToRegex($string.'+'.($this->lazy ? '?' : ''));
@@ -32,7 +32,7 @@ trait Quantifiers
 
     public function nTimes(int $times): static
     {
-        $this->addToRegex('{'.$times.'}');
+        $this->addToRegex('{'.$times.'}'.($this->lazy ? '?' : ''));
 
         return $this;
     }
@@ -40,21 +40,21 @@ trait Quantifiers
     public function nTimesOf(string $string, int $times): static
     {
         $string = $this->escape($string);
-        $this->addToRegex($string.'{'.$times.'}');
+        $this->addToRegex($string.'{'.$times.'}'.($this->lazy ? '?' : ''));
 
         return $this;
     }
 
     public function nTimesOrMore(int $times): static
     {
-        $this->addToRegex('{'.$times.',}');
+        $this->addToRegex('{'.$times.',}'.($this->lazy ? '?' : ''));
 
         return $this;
     }
 
     public function betweenNTimes(int $from, int $to): static
     {
-        $this->addToRegex('{'.$from.','.$to.'}');
+        $this->addToRegex('{'.$from.','.$to.'}'.($this->lazy ? '?' : ''));
 
         return $this;
     }

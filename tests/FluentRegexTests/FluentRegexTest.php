@@ -44,7 +44,7 @@ it('throws an exception when setting the not modifier', function () {
 it('does not throw an exception when getting the lazy modifier', function () {
     expect(function () {
         $regex = new FluentRegex('foo bar baz');
-        $regex->lazy->zeroOrMore('f');
+        $regex->lazy->zeroOrMoreTimes('f');
     })->not->toThrow(Exception::class);
 });
 
