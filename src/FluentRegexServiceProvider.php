@@ -19,8 +19,5 @@ class FluentRegexServiceProvider extends PackageServiceProvider
         $package
             ->name('fluent-regex')
             ->hasConfigFile();
-//            ->hasViews()
-//            ->hasMigration('create_fluent-regex_table')
-//            ->hasCommand(FluentRegexCommand::class);
     }
 }

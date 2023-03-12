@@ -29,10 +29,16 @@ class FluentRegex
 
     protected bool $lazy = false;
 
-    public function __construct(string $subject = '', string $delimiter = '/')
+    public function __construct(string $subject = '', string $delimiter = '')
     {
         $this->subject = $subject;
-        $this->delimiter = $delimiter;
+
+        if ($delimiter == '') {
+            /**@phpstan-ignore-next-line */
+            $this->delimiter = config('fluent-regex.delimiter', '/');
+        } else {
+            $this->delimiter = $delimiter;
+        }
     }
 
     /**
