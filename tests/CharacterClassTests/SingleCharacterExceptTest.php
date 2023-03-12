@@ -31,3 +31,13 @@ it('returns the correct matches', function () {
     expect($matches)->toBeArray()
         ->toBe([['f', 'o', 'o', ' ', ' ', 'z']]);
 });
+
+it('escapes the correct characters', function () {
+    $regex = new FluentRegex('foo bar baz');
+
+    $regexString = $regex->not->anyCharacterOf('bar{}')
+        ->get();
+
+    expect($regexString)->toBeString()
+        ->toBe('/[^bar\{\}]/');
+});

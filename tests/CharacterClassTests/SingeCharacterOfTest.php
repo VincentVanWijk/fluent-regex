@@ -30,3 +30,12 @@ it('returns the correct matches', function () {
     expect($matches)->toBeArray()
         ->toBe([['b', 'a', 'r', 'b', 'a']]);
 });
+
+it('escapes the correct characters', function () {
+    $regex = new FluentRegex('foo bar baz');
+    $regexString = $regex->anyCharacterOf('bar{}')
+        ->get();
+
+    expect($regexString)->toBeString()
+        ->toBe('/[bar\{\}]/');
+});

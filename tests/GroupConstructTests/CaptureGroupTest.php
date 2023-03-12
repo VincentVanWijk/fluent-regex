@@ -53,18 +53,17 @@ it('returns the correct matches', function () {
 });
 
 it('escapes the correct characters', function () {
-    $regex = new FluentRegex('foo bar.* baz');
+    $regex = new FluentRegex('foo bar baz');
 
-    $matches = $regex->exactly('bar.*')
-        ->matchAll();
+    $regex->exactly('foo')
+        ->anyCharacterOf(' baz!')
+        ->capture(function ($regex) {
+            return $regex->exactly('bar{}')
+                ->not->alphaNumeric()
+                ->exactly('baz');
+        });
 
-    expect($matches)
-        ->toBeArray()
-        ->toBe([['bar.*']]);
-
-    $regexString = $regex->get();
-    expect($regexString)
-        ->toBe('/bar\.\*/');
-
-    //test
+    expect($regex->get())
+        ->toBeString()
+        ->toBe('/foo[ baz\!](bar\{\}[^a-zA-Z0-9]baz)/');
 });
