@@ -6,6 +6,11 @@ use VincentVanWijk\FluentRegex\Facades\FluentRegex as FluentRegexFacade;
 use VincentVanWijk\FluentRegex\FluentRegex;
 
 it('can be accessed via the Facade', function () {
+    $facadeClass = FluentRegexFacade::getFacadeRoot();
+
+    expect($facadeClass)
+        ->toBeInstanceOf(FluentRegex::class);
+
     $regex = FluentRegexFacade::create('foo bar baz')
         ->anyCharacterOf('bar')
         ->get();
@@ -48,4 +53,47 @@ it('throws an exception when setting the lazy modifier', function () {
         $regex = new FluentRegex('foo bar baz');
         $regex->lazy = true;
     })->toThrow(Exception::class, 'Cannot set value of property $lazy.');
+});
+
+it('returns a string', function () {
+    $regex = new FluentRegex('foo bar baz');
+    $regexString = $regex->exactly('bar')
+        ->get();
+
+    expect($regexString)
+        ->toBeString();
+});
+
+it('returns a non empty string', function () {
+    $regex = new FluentRegex('foo bar baz');
+    $regexString = $regex->exactly('bar')
+        ->get();
+
+    expect($regexString)
+        ->toBe('/bar/');
+});
+
+it('returns the correct delimiter', function () {
+    $regex = new FluentRegex('foo bar baz');
+    $regexString = $regex->exactly('bar')
+        ->get();
+
+    expect($regexString)
+        ->toBe('/bar/');
+
+    $regex = new FluentRegex('foo bar baz', '#');
+    $regexString = $regex->exactly('b#a#r')
+        ->get();
+
+    expect($regexString)
+        ->toBe('#b\#a\#r#');
+});
+
+it('returns the correct raw regex', function () {
+    $regex = new FluentRegex('foo bar baz');
+    $regexString = $regex->raw('[bar]?')
+        ->get();
+
+    expect($regexString)
+        ->toBe('/[bar]?/');
 });

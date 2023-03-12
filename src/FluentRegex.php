@@ -114,4 +114,11 @@ class FluentRegex
 
         return $this;
     }
+
+    public function raw(string $string): static
+    {
+        $this->addToRegex($string);
+
+        return $this;
+    }
 }
