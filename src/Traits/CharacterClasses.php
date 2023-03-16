@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace VincentVanWijk\FluentRegex\Traits;
 
+use Exception;
 use VincentVanWijk\FluentRegex\FluentRegex;
 
 trait CharacterClasses
@@ -85,6 +86,25 @@ trait CharacterClasses
     public function alphaNumeric(): static
     {
         $this->addToRegex($this->not ? '[^a-zA-Z0-9]' : '[a-zA-Z0-9]');
+
+        return $this;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function range(string $from, string $to): static
+    {
+        $ascii1 = ord($from);
+        $ascii2 = ord($to);
+
+        if ($ascii1 > $ascii2) {
+            throw new Exception('Character range is out of ASCII order.');
+        }
+
+        $this->addToRegex($this->not ? '[^' : '[');
+        $this->addToRegex($from . '-' . $to);
+        $this->addToRegex(']');
 
         return $this;
     }
