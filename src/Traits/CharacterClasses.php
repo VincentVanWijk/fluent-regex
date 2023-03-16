@@ -42,6 +42,7 @@ trait CharacterClasses
         $or = '';
 
         foreach ($tokens as $key => $token) {
+            /** @var string $token */
             $or .= $this->escape($token);
             if ($key !== array_key_last($tokens)) {
                 $or .= '|';
