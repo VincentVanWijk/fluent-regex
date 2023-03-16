@@ -8,6 +8,7 @@ use Exception;
 use VincentVanWijk\FluentRegex\Traits\CharacterClasses;
 use VincentVanWijk\FluentRegex\Traits\GroupConstructs;
 use VincentVanWijk\FluentRegex\Traits\Quantifiers;
+use VincentVanWijk\FluentRegex\Traits\Token;
 
 /**
  * @property FluentRegex $not
@@ -18,6 +19,7 @@ class FluentRegex
     use CharacterClasses;
     use GroupConstructs;
     use Quantifiers;
+    use Token;
 
     private string $subject;
 
