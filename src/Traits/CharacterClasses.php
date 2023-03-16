@@ -103,7 +103,7 @@ trait CharacterClasses
         }
 
         $this->addToRegex($this->not ? '[^' : '[');
-        $this->addToRegex($from . '-' . $to);
+        $this->addToRegex($from.'-'.$to);
         $this->addToRegex(']');
 
         return $this;
