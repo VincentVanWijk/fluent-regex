@@ -24,7 +24,6 @@ it('returns the correct match', function () {
         ->toBe(['f']);
 });
 
-
 it('returns the correct matches', function () {
     $regex = FluentRegex::create('foo ');
 
