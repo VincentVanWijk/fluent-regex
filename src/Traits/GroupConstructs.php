@@ -8,13 +8,24 @@ use VincentVanWijk\FluentRegex\FluentRegex;
 
 trait GroupConstructs
 {
-    public function capture(callable $func): static
+    public function captureGroup(callable $func): static
     {
         /** @var FluentRegex $regex */
         $regex = call_user_func($func, new self());
         $regexString = $regex->get(withoutDelimiters: true);
 
         $this->regex .= '('.$regexString.')';
+
+        return $this;
+    }
+
+    public function nonCaptureGroup(callable $func): static
+    {
+        /** @var FluentRegex $regex */
+        $regex = call_user_func($func, new self());
+        $regexString = $regex->get(withoutDelimiters: true);
+
+        $this->regex .= '(?:'.$regexString.')';
 
         return $this;
     }

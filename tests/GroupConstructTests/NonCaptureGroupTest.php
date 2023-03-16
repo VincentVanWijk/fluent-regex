@@ -9,7 +9,7 @@ it('returns the correct regex', function () {
 
     $regex->exactly('foo')
         ->anyCharacterOf(' baz')
-        ->captureGroup(function ($regex) {
+        ->nonCaptureGroup(function ($regex) {
             return $regex->exactly('bar')
                 ->not->alphaNumeric()
                 ->exactly('baz');
@@ -17,14 +17,14 @@ it('returns the correct regex', function () {
 
     expect($regex->get())
         ->toBeString()
-        ->toBe('/foo[ baz](bar[^a-zA-Z0-9]baz)/');
+        ->toBe('/foo[ baz](?:bar[^a-zA-Z0-9]baz)/');
 });
 
 it('returns the correct match', function () {
     $regex = new FluentRegex('foo bar baz');
     $match = $regex->exactly('foo')
         ->anyCharacterOf(' baz')
-        ->captureGroup(function ($regex) {
+        ->nonCaptureGroup(function ($regex) {
             return $regex->exactly('bar')
                 ->not->alphaNumeric()
                 ->exactly('baz');
@@ -33,14 +33,14 @@ it('returns the correct match', function () {
 
     expect($match)
         ->toBeArray()
-        ->toBe(['foo bar baz', 'bar baz']);
+        ->toBe(['foo bar baz']);
 });
 
 it('returns the correct matches', function () {
     $regex = new FluentRegex('foo bar baz');
     $matches = $regex->exactly('foo')
         ->anyCharacterOf(' baz')
-        ->captureGroup(function ($regex) {
+        ->nonCaptureGroup(function ($regex) {
             return $regex->exactly('bar')
                 ->not->alphaNumeric()
                 ->exactly('baz');
@@ -49,7 +49,7 @@ it('returns the correct matches', function () {
 
     expect($matches)
         ->toBeArray()
-        ->toBe([['foo bar baz'], ['bar baz']]);
+        ->toBe([['foo bar baz']]);
 });
 
 it('escapes the correct characters', function () {
@@ -57,7 +57,7 @@ it('escapes the correct characters', function () {
 
     $regex->exactly('foo')
         ->anyCharacterOf(' baz!')
-        ->captureGroup(function ($regex) {
+        ->nonCaptureGroup(function ($regex) {
             return $regex->exactly('bar{}')
                 ->not->alphaNumeric()
                 ->exactly('baz');
@@ -65,5 +65,5 @@ it('escapes the correct characters', function () {
 
     expect($regex->get())
         ->toBeString()
-        ->toBe('/foo[ baz\!](bar\{\}[^a-zA-Z0-9]baz)/');
+        ->toBe('/foo[ baz\!](?:bar\{\}[^a-zA-Z0-9]baz)/');
 });
