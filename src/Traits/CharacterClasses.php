@@ -37,6 +37,22 @@ trait CharacterClasses
         return $this;
     }
 
+    public function or(string|array ...$tokens): static
+    {
+        $or = '';
+
+        foreach ($tokens as $key => $token) {
+            $or .= $this->escape($token);
+            if ($key !== array_key_last($tokens)) {
+                $or .= '|';
+            }
+        }
+
+        $this->addToRegex($or);
+
+        return $this;
+    }
+
     public function letter(): static
     {
         $this->addToRegex($this->not ? '[^a-zA-Z]' : '[a-zA-Z]');
