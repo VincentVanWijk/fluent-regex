@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use VincentVanWijk\FluentRegex\Facades\FluentRegex as FluentRegexFacade;
 use VincentVanWijk\FluentRegex\FluentRegex;
 
 it('returns the correct regex', function () {
@@ -38,4 +39,18 @@ it('escapes the correct characters', function () {
 
     expect($regexString)->toBeString()
         ->toBe('/[bar\{\}]/');
+});
+
+it('works with a callback and facade', function () {
+    $regex = FluentRegexFacade::create('a{bc');
+    $regexString = $regex->exactly('a')
+        ->anyCharacterOf(function (FluentRegex $regex) {
+            return $regex->exactly('{')
+                ->lowerCaseLetter()
+                ->digit();
+        })
+        ->oneOrMoreTimes()
+        ->get();
+    expect($regexString)->toBeString()
+        ->toBe('/a[\{a-z0-9]+/');
 });

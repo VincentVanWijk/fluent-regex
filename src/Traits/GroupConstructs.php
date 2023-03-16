@@ -11,7 +11,7 @@ trait GroupConstructs
     public function capture(callable $func): static
     {
         /** @var FluentRegex $regex */
-        $regex = call_user_func($func, new FluentRegex(''));
+        $regex = call_user_func($func, new self());
         $regexString = $regex->get(withoutDelimiters: true);
 
         $this->regex .= '('.$regexString.')';

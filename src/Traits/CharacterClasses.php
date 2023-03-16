@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace VincentVanWijk\FluentRegex\Traits;
 
+use VincentVanWijk\FluentRegex\FluentRegex;
+
 trait CharacterClasses
 {
     public function exactly(string $exactly): static
@@ -13,16 +15,41 @@ trait CharacterClasses
         return $this;
     }
 
-    public function anyCharacterOf(array|string ...$characters): static
+    public function anyCharacterOf(string|callable $characters): static
     {
         $this->addToRegex($this->not ? '[^' : '[');
 
-        /** @var string $char */
-        foreach ($characters as $char) {
-            $this->addToRegex($this->escape($char));
+        if (is_callable($characters)) {
+            /** @var FluentRegex $regex */
+            $regex = call_user_func($characters, new self());
+
+            /**
+             * remove any charactergroups from the regex that the user might have added
+             * but keep escaped ones
+             */
+            $this->addToRegex(preg_replace('/(?<!\\\\)[\[\]]/', '', $regex->get(withoutDelimiters: true)) ?? '');
+        } else {
+            $this->addToRegex($this->escape($characters));
         }
 
         $this->addToRegex(']');
+
+        return $this;
+    }
+
+    public function or(string|array ...$tokens): static
+    {
+        $or = '';
+
+        foreach ($tokens as $key => $token) {
+            /** @var string $token */
+            $or .= $this->escape($token);
+            if ($key !== array_key_last($tokens)) {
+                $or .= '|';
+            }
+        }
+
+        $this->addToRegex($or);
 
         return $this;
     }

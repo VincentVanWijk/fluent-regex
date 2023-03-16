@@ -8,7 +8,7 @@ it('returns the correct regex', function () {
     $regex = new FluentRegex('foobarbaz');
 
     $regex->exactly('foo')
-        ->zeroOrMore()
+        ->zeroOrMoreTimes()
         ->exactly('barbaz');
 
     expect($regex->get())
@@ -20,7 +20,7 @@ it('returns the correct match', function () {
     $regex = new FluentRegex('foooobarbaz');
 
     $match = $regex->exactly('foo')
-        ->zeroOrMore()
+        ->zeroOrMoreTimes()
         ->exactly('barbaz')
         ->match();
 
@@ -33,7 +33,7 @@ it('returns the correct matches', function () {
     $regex = new FluentRegex('fbarbaz fobarbaz foooobarbaz');
 
     $match = $regex->exactly('f')
-        ->zeroOrMore('o')
+        ->zeroOrMoreTimes('o')
         ->exactly('barbaz')
         ->matchAll();
 
