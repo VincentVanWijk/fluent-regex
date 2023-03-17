@@ -7,6 +7,7 @@ namespace VincentVanWijk\FluentRegex;
 use Exception;
 use VincentVanWijk\FluentRegex\Traits\CharacterClasses;
 use VincentVanWijk\FluentRegex\Traits\GroupConstructs;
+use VincentVanWijk\FluentRegex\Traits\MetaSequences;
 use VincentVanWijk\FluentRegex\Traits\Quantifiers;
 use VincentVanWijk\FluentRegex\Traits\Tokens;
 
@@ -20,6 +21,7 @@ class FluentRegex
     use GroupConstructs;
     use Quantifiers;
     use Tokens;
+    use MetaSequences;
 
     private string $subject;
 
