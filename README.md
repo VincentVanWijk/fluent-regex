@@ -1,3 +1,5 @@
+<style>pre{margin-bottom: -16px; padding-bottom: 3px;padding-top: 0}</style>
+
 # A package to fluently create regular expressions
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/vincentvanwijk/fluent-regex.svg?style=flat-square)](https://packagist.org/packages/vincentvanwijk/fluent-regex)
@@ -17,39 +19,59 @@ composer require vincentvanwijk/fluent-regex
 
 ## Usage
 
-Start by creating a new instance of the FluentRegex class.
+Start by callingthe create function on the FluentRegex class.
 
-The first parameter is the string that the regex is performed on.
+It takes the string that the regex is to be performed on as a parameter.
 
 The second parameter is the delimiter, which defaults to `'/'`.
 
 ```php
-use VincentVanWijk\FluentRegex\FluentRegex;
-$fluentRegex = new FluentRegex("Let's do some regex!");
+use VincentVanWijk\FluentRegex\Facades\FluentRegex;
+
+$fluentRegex = FluentRegex::create("foo bar baz");
 ```
 
+---
 You can add tokens to the regex by chaining methods on the FluentRegex object.
 
-```php
-// '/Let's [abcd][mnop]/'
-$fluentRegex->exactly("Let's ")
-    ->anyCharacterOf('abcd')
-    ->anyCharacterOf('mnop') 
+```phpregexp
+/foo\s[bar baz]+/
 ```
 
-Character that need it will be escaped automatically.
+```php
+$fluentRegex->exactly("foo")
+    ->whiteSpace()
+    ->anyCharacterOf('bar baz')
+    ->oneOrMoreTimes();
+```
+
+---
+Characters that need it will be escaped automatically.
+
+```phpregexp
+/regex\!/
+```
 
 ```php
-// '/regex\!/'
 $fluentRegex->exactly("regex!")
 ```
 
+---
 Most methods can be negated using the `not` modifier.
 
+```phpregexp
+/[a-zA-Z]/
+```
+
 ```php
-// '/[a-zA-Z]/'
 $fluentRegex->letter();
-// '/[^a-zA-Z]/'
+```
+
+```phpregexp
+/[^a-zA-Z]/
+```
+
+```php
 $fluentRegex->not->letter();
 ```
 
@@ -59,14 +81,18 @@ Grouping constructs such as capturing groups take an anonymous function as a par
 The anonymous function takes a FluentRegex object as a parameter.  
 On this object you can continue to chain methods to create the sub-pattern for the capture group.
 
+```phpregexp
+/foo (bar baz)/
+```
+
 ```php
-// '/Let's ([abcd][mnop]) some regex\!/'
-$fluentRegex->exactly("Let's ")      
+$fluentRegex->exactly("foo ")      
     ->capture(function (FluentRegex $regex) {
-         return $regex->anyCharacterOf('abcd') 
-         ->anyCharacterOf('mnop')       
+         return $regex->exactly('bar') 
+         ->whiteSpace()
+         ->exactly('baz')       
     })
-    ->exactly(' some regex!');                             
+    ->exactly(' baz');                             
 ```
 
 ## Returning results
@@ -79,6 +105,7 @@ The second index `[1]` will contain the text that matched the first subpattern, 
 $fluentRegex->match();
 ```
 
+---
 Or call the `matchAll()` method to return a multidimensional array with all matches.
 The first index `[0]` is an array of full pattern matches
 The second index `[1]` is an array of strings matched by the first subpattern, and so on.
@@ -87,6 +114,7 @@ The second index `[1]` is an array of strings matched by the first subpattern, a
 $fluentRegex->matchAll();
 ```
 
+---
 To get the regex in its string representation, call
 
 ```php
