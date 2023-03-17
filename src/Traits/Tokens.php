@@ -2,7 +2,7 @@
 
 namespace VincentVanWijk\FluentRegex\Traits;
 
-trait Token
+trait Tokens
 {
     public function anyCharacter(): static
     {
