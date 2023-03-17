@@ -9,6 +9,9 @@ use VincentVanWijk\FluentRegex\FluentRegex;
 
 trait CharacterClasses
 {
+    /**
+     * @return $this
+     */
     public function exactly(string $exactly): static
     {
         $this->addToRegex($this->escape($exactly));
