@@ -15,41 +15,64 @@ You can install the package via composer:
 composer require vincentvanwijk/fluent-regex
 ```
 
+You can publish the config file with:
+
+```bash
+php artisan vendor:publish --tag=":package_slug-config"
+```
+
 ## Usage
 
-Start by creating a new instance of the FluentRegex class.
+Start by calling the create function on the FluentRegex class.
 
-The first parameter is the string that the regex is performed on.
+It takes the string that the regex is to be performed on as a parameter.
 
 The second parameter is the delimiter, which defaults to `'/'`.
 
 ```php
-use VincentVanWijk\FluentRegex\FluentRegex;
-$fluentRegex = new FluentRegex("Let's do some regex!");
+use VincentVanWijk\FluentRegex\Facades\FluentRegex;
+
+$fluentRegex = FluentRegex::create("foo bar baz");
 ```
 
 You can add tokens to the regex by chaining methods on the FluentRegex object.
 
-```php
-// '/Let's [abcd][mnop]/'
-$fluentRegex->exactly("Let's ")
-    ->anyCharacterOf('abcd')
-    ->anyCharacterOf('mnop') 
+```phpregexp
+/foo\s[bar baz]+/
 ```
 
-Character that need it will be escaped automatically.
+```php
+$fluentRegex->exactly("foo")
+    ->whiteSpace()
+    ->anyCharacterOf('bar baz')
+    ->oneOrMoreTimes();
+```
+
+Characters that need it will be escaped automatically.
+
+```phpregexp
+/regex\!/
+```
 
 ```php
-// '/regex\!/'
 $fluentRegex->exactly("regex!")
 ```
 
 Most methods can be negated using the `not` modifier.
 
+```phpregexp
+/[a-zA-Z]/
+```
+
 ```php
-// '/[a-zA-Z]/'
 $fluentRegex->letter();
-// '/[^a-zA-Z]/'
+```
+
+```phpregexp
+/[^a-zA-Z]/
+```
+
+```php
 $fluentRegex->not->letter();
 ```
 
@@ -59,14 +82,17 @@ Grouping constructs such as capturing groups take an anonymous function as a par
 The anonymous function takes a FluentRegex object as a parameter.  
 On this object you can continue to chain methods to create the sub-pattern for the capture group.
 
+```phpregexp
+/foo (bar baz)/
+```
+
 ```php
-// '/Let's ([abcd][mnop]) some regex\!/'
-$fluentRegex->exactly("Let's ")      
+$fluentRegex->exactly("foo ")      
     ->capture(function (FluentRegex $regex) {
-         return $regex->anyCharacterOf('abcd') 
-         ->anyCharacterOf('mnop')       
+         return $regex->exactly('bar') 
+         ->whiteSpace()
+         ->exactly('baz')       
     })
-    ->exactly(' some regex!');                             
 ```
 
 ## Returning results

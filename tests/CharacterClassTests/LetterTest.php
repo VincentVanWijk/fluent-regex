@@ -10,7 +10,7 @@ it('returns the correct regex', function () {
 
     expect($regexString)
         ->toBeString()
-        ->toBe('/[a-zA-Z]/');
+        ->toBe('/[a-zA-Z]/m');
 });
 
 it('returns the correct match', function () {
