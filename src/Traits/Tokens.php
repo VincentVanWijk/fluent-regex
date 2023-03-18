@@ -7,16 +7,6 @@ namespace VincentVanWijk\FluentRegex\Traits;
 trait Tokens
 {
     /**
-     * Matches any character other than newline
-     */
-    public function anyCharacter(): static
-    {
-        $this->addToRegex('.');
-
-        return $this;
-    }
-
-    /**
      * Matches any Unicode newline sequence. Equivalent to (?>\r\n|\n|\x0b|\f|\r|\x85)
      */
     public function newLine(): static
