@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace VincentVanWijk\FluentRegex;
 
 use Exception;
+use VincentVanWijk\FluentRegex\Traits\Anchors;
 use VincentVanWijk\FluentRegex\Traits\CharacterClasses;
 use VincentVanWijk\FluentRegex\Traits\GroupConstructs;
 use VincentVanWijk\FluentRegex\Traits\MetaSequences;
@@ -17,6 +18,7 @@ use VincentVanWijk\FluentRegex\Traits\Tokens;
  */
 class FluentRegex
 {
+    use Anchors;
     use CharacterClasses;
     use GroupConstructs;
     use Quantifiers;
