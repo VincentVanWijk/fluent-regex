@@ -23,7 +23,7 @@ class FluentRegex
     use Tokens;
     use MetaSequences;
 
-    private string $subject;
+    public string $subject;
 
     private string $delimiter;
 
@@ -33,9 +33,12 @@ class FluentRegex
 
     protected bool $lazy = false;
 
+    public bool $multiline;
+
     public function __construct(string $subject = '', string $delimiter = '')
     {
         $this->subject = $subject;
+        $this->multiline = (bool) config('fluent-regex.multilineMode', true);
 
         if ($delimiter == '') {
             /**@phpstan-ignore-next-line */
@@ -102,7 +105,14 @@ class FluentRegex
 
     public function get(bool $withoutDelimiters = false): string
     {
-        return $withoutDelimiters ? $this->regex : $this->delimiter.$this->regex.$this->delimiter;
+        if ($withoutDelimiters) {
+            return $this->regex;
+        }
+
+        $regex = $this->delimiter.$this->regex.$this->delimiter;
+        $regex .= $this->multiline ? 'm' : '';
+
+        return $regex;
     }
 
     private function reset(): void
@@ -122,6 +132,27 @@ class FluentRegex
     public function raw(string $string): static
     {
         $this->addToRegex($string);
+
+        return $this;
+    }
+
+    public function setMultiline(bool $multiline): static
+    {
+        $this->multiline = $multiline;
+
+        return $this;
+    }
+
+    public function enableMultiline(): static
+    {
+        $this->multiline = true;
+
+        return $this;
+    }
+
+    public function disableMultiline(): static
+    {
+        $this->multiline = false;
 
         return $this;
     }

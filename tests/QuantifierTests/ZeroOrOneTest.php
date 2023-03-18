@@ -13,7 +13,7 @@ it('returns the correct regex', function () {
 
     expect($regex->get())
         ->toBeString()
-        ->toBe('/foo?barbaz/');
+        ->toBe('/foo?barbaz/m');
 });
 
 it('returns the correct match', function () {

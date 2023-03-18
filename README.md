@@ -1,5 +1,3 @@
-<style>pre{margin-bottom: -16px; padding-bottom: 3px;padding-top: 0}</style>
-
 # A package to fluently create regular expressions
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/vincentvanwijk/fluent-regex.svg?style=flat-square)](https://packagist.org/packages/vincentvanwijk/fluent-regex)
@@ -17,9 +15,15 @@ You can install the package via composer:
 composer require vincentvanwijk/fluent-regex
 ```
 
+You can publish the config file with:
+
+```bash
+php artisan vendor:publish --tag=":package_slug-config"
+```
+
 ## Usage
 
-Start by callingthe create function on the FluentRegex class.
+Start by calling the create function on the FluentRegex class.
 
 It takes the string that the regex is to be performed on as a parameter.
 
@@ -31,7 +35,6 @@ use VincentVanWijk\FluentRegex\Facades\FluentRegex;
 $fluentRegex = FluentRegex::create("foo bar baz");
 ```
 
----
 You can add tokens to the regex by chaining methods on the FluentRegex object.
 
 ```phpregexp
@@ -45,7 +48,6 @@ $fluentRegex->exactly("foo")
     ->oneOrMoreTimes();
 ```
 
----
 Characters that need it will be escaped automatically.
 
 ```phpregexp
@@ -56,7 +58,6 @@ Characters that need it will be escaped automatically.
 $fluentRegex->exactly("regex!")
 ```
 
----
 Most methods can be negated using the `not` modifier.
 
 ```phpregexp
@@ -92,7 +93,6 @@ $fluentRegex->exactly("foo ")
          ->whiteSpace()
          ->exactly('baz')       
     })
-    ->exactly(' baz');                             
 ```
 
 ## Returning results
@@ -105,7 +105,6 @@ The second index `[1]` will contain the text that matched the first subpattern, 
 $fluentRegex->match();
 ```
 
----
 Or call the `matchAll()` method to return a multidimensional array with all matches.
 The first index `[0]` is an array of full pattern matches
 The second index `[1]` is an array of strings matched by the first subpattern, and so on.
@@ -114,7 +113,6 @@ The second index `[1]` is an array of strings matched by the first subpattern, a
 $fluentRegex->matchAll();
 ```
 
----
 To get the regex in its string representation, call
 
 ```php

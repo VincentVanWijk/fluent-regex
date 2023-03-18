@@ -10,7 +10,7 @@ use VincentVanWijk\FluentRegex\FluentRegex;
 trait CharacterClasses
 {
     /**
-     * @return $this
+     * Matches the provided string exactly.
      */
     public function exactly(string $exactly): static
     {
@@ -19,6 +19,10 @@ trait CharacterClasses
         return $this;
     }
 
+    /**
+     * Matches any character present in the set.
+     * Can be negated with the not modifier.
+     */
     public function anyCharacterOf(string|callable $characters): static
     {
         $this->addToRegex($this->not ? '[^' : '[');
@@ -41,6 +45,10 @@ trait CharacterClasses
         return $this;
     }
 
+    /**
+     * @param  string|array  $tokens
+     * Matches either what is before the | or what is after it.
+     */
     public function or(string|array ...$tokens): static
     {
         $or = '';
@@ -48,6 +56,7 @@ trait CharacterClasses
         foreach ($tokens as $key => $token) {
             /** @var string $token */
             $or .= $this->escape($token);
+
             if ($key !== array_key_last($tokens)) {
                 $or .= '|';
             }
@@ -58,6 +67,9 @@ trait CharacterClasses
         return $this;
     }
 
+    /**
+     * Matches any upper or lowercase letter. ([a-zA-Z])
+     */
     public function letter(): static
     {
         $this->addToRegex($this->not ? '[^a-zA-Z]' : '[a-zA-Z]');
@@ -65,6 +77,9 @@ trait CharacterClasses
         return $this;
     }
 
+    /**
+     * Matches any lowercase letter. ([a-z])
+     */
     public function lowerCaseLetter(): static
     {
         $this->addToRegex($this->not ? '[^a-z]' : '[a-z]');
@@ -72,6 +87,9 @@ trait CharacterClasses
         return $this;
     }
 
+    /**
+     * Matches any uppercase letter. ([A-Z])
+     */
     public function upperCaseLetter(): static
     {
         $this->addToRegex($this->not ? '[^A-Z]' : '[A-Z]');
@@ -79,6 +97,9 @@ trait CharacterClasses
         return $this;
     }
 
+    /**
+     * Matches ant digit. ([0-9])
+     */
     public function digit(): static
     {
         $this->addToRegex($this->not ? '[^0-9]' : '[0-9]');
@@ -86,6 +107,9 @@ trait CharacterClasses
         return $this;
     }
 
+    /**
+     * Matches letter or digit ([a-zA-Z0-9])
+     */
     public function alphaNumeric(): static
     {
         $this->addToRegex($this->not ? '[^a-zA-Z0-9]' : '[a-zA-Z0-9]');
@@ -95,6 +119,8 @@ trait CharacterClasses
 
     /**
      * @throws Exception
+     * Matches any characters between $from and $to,
+     * including $from and $to themselves.
      */
     public function range(string $from, string $to): static
     {

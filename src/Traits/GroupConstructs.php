@@ -8,6 +8,10 @@ use VincentVanWijk\FluentRegex\FluentRegex;
 
 trait GroupConstructs
 {
+    /**
+     * Isolates part of the full match to be later referred to by ID within the regex or the matches array.
+     * IDs start at 1.
+     */
     public function captureGroup(callable $func): static
     {
         /** @var FluentRegex $regex */
@@ -19,6 +23,9 @@ trait GroupConstructs
         return $this;
     }
 
+    /**
+     * A non-capturing group allows you to apply quantifiers to part of your regex but does not capture/assign an ID.
+     */
     public function nonCaptureGroup(callable $func): static
     {
         /** @var FluentRegex $regex */

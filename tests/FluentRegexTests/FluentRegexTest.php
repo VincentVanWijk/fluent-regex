@@ -17,7 +17,7 @@ it('can be accessed via the Facade', function () {
 
     expect($regex)
         ->toBeString()
-        ->toBe('/[bar]/');
+        ->toBe('/[bar]/m');
 });
 
 it('getting a random property throws an exception', function () {
@@ -70,7 +70,7 @@ it('returns a non empty string', function () {
         ->get();
 
     expect($regexString)
-        ->toBe('/bar/');
+        ->toBe('/bar/m');
 });
 
 it('returns the correct delimiter', function () {
@@ -79,14 +79,14 @@ it('returns the correct delimiter', function () {
         ->get();
 
     expect($regexString)
-        ->toBe('/bar/');
+        ->toBe('/bar/m');
 
     $regex = new FluentRegex('foo bar baz', '#');
     $regexString = $regex->exactly('b#a#r')
         ->get();
 
     expect($regexString)
-        ->toBe('#b\#a\#r#');
+        ->toBe('#b\#a\#r#m');
 });
 
 it('returns the correct raw regex', function () {
@@ -95,5 +95,63 @@ it('returns the correct raw regex', function () {
         ->get();
 
     expect($regexString)
-        ->toBe('/[bar]?/');
+        ->toBe('/[bar]?/m');
+});
+
+it('works when creating with a file', function () {
+    $regex = FluentRegexFacade::createFromFile(__DIR__.'/../_TestFiles/testTXTfile.txt')
+        ->exactly('FRY');
+
+    expect($regex->get())
+        ->toBeString()
+        ->toBe('/FRY/m')
+        ->and($regex->match())
+        ->toBeArray()
+        ->toBe(['FRY']);
+});
+
+it('throws an exception when creating with a file that does not exist', function () {
+    expect(function () {
+        $regex = FluentRegexFacade::createFromFile(__DIR__.'/../_TestFiles/doesNotExist.txt');
+    })->toThrow(Exception::class, 'Could not read file');
+});
+
+it('enables multiline mode by default', function () {
+    $regex = new FluentRegex('foo bar baz');
+
+    expect($regex->multiline)
+        ->toBeBool()
+        ->toBe(true);
+});
+
+it('can disable multiline mode', function () {
+    $regex = (new FluentRegex('foo bar baz'))->disableMultiline();
+
+    expect($regex->multiline)
+        ->toBeBool()
+        ->toBe(false);
+
+    $regex->multiline = true;
+
+    $regex->setMultiline(false);
+
+    expect($regex->multiline)
+        ->toBeBool()
+        ->toBe(false);
+});
+
+it('can enable multiline mode', function () {
+    $regex = (new FluentRegex('foo bar baz'))->disableMultiline();
+    $regex->enableMultiline();
+    expect($regex->multiline)
+        ->toBeBool()
+        ->toBe(true);
+
+    $regex->multiline = false;
+
+    $regex->setMultiline(true);
+
+    expect($regex->multiline)
+        ->toBeBool()
+        ->toBe(true);
 });

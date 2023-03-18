@@ -11,7 +11,7 @@ it('returns the correct regex', function () {
         ->get();
 
     expect($regexString)->toBeString()
-        ->toBe('/[0-b]/');
+        ->toBe('/[0-b]/m');
 });
 
 it('returns the correct match', function () {
