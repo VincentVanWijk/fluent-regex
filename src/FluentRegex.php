@@ -37,10 +37,13 @@ class FluentRegex
 
     public bool $multiline;
 
+    public bool $unicode;
+
     public function __construct(string $subject = '', string $delimiter = '')
     {
         $this->subject = $subject;
         $this->multiline = (bool) config('fluent-regex.multilineMode', true);
+        $this->unicode = (bool) config('fluent-regex.unicodeMode', true);
 
         if ($delimiter == '') {
             /**@phpstan-ignore-next-line */
@@ -113,6 +116,7 @@ class FluentRegex
 
         $regex = $this->delimiter.$this->regex.$this->delimiter;
         $regex .= $this->multiline ? 'm' : '';
+        $regex .= $this->unicode ? 'u' : '';
 
         return $regex;
     }

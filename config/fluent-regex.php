@@ -14,4 +14,9 @@ return [
      * If disabled, the ^ and $ tokens will match the start and end of the string, respectively.
      */
     'multiLineMode' => true,
+
+    /**
+     * Pattern strings are treated as UTF-16. Also causes escape sequences to match unicode charactersr.
+     */
+    'unicodeMode' => true,
 ];

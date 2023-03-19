@@ -29,7 +29,7 @@ trait Anchors
     }
 
     /**
-     * Matches the start of a string only. Unlike startOfLine(), this is not affected by multiline mode.
+     * Matches the start of a string only. Unlike ^or startOfLine(), this is not affected by multiline mode.
      */
     public function startOfString(): static
     {
@@ -39,7 +39,7 @@ trait Anchors
     }
 
     /**
-     * Matches the end of a string only. Unlike endOfLine(), this is not affected by multiline mode.
+     * Matches the end of a string only. Unlike $ or endOfLine(), this is not affected by multiline mode.
      */
     public function endOfString(): static
     {
@@ -49,7 +49,7 @@ trait Anchors
     }
 
     /**
-     * Matches the end of a string only. Unlike $, this is not affected by multiline mode, and, in contrast to \Z,
+     * Matches the end of a string only. Unlike $ or endOfLine(), this is not affected by multiline mode, and, in contrast to \Z,
      * will not match before a trailing newline at the end of a string.
      */
     public function absoluteEndOfString(): static

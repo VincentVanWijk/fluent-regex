@@ -8,7 +8,7 @@ it('returns the correct regex', function () {
         ->get();
 
     expect($regex)->toBeString()
-        ->toBe('/\s/m');
+        ->toBe('/\s/mu');
 });
 
 it('returns the correct match', function () {

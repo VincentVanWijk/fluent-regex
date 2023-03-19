@@ -9,7 +9,7 @@ it('returns the correct regex', function () {
         ->endOfLine()
         ->get();
 
-    expect($regex)->toBeString()->toBe('/$/m');
+    expect($regex)->toBeString()->toBe('/$/mu');
 });
 
 it('returns the correct match', function () {

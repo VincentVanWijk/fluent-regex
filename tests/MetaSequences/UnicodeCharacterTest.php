@@ -10,24 +10,23 @@ it('returns the correct regex', function () {
         ->get();
 
     expect($regex)->toBeString()
-        ->toBe('/\X/m');
+        ->toBe('/\X/mu');
 });
 
-//FIXME: Find out what is happening to these unicode characters
-//it('returns the correct match', function () {
-//    $regex = FluentRegex::create("äny únicød3 character")
-//        ->uniCodeCharacter()
-//        ->match();
-//
-//    expect($regex)->toBeArray()
-//        ->toBe(['ä']);
-//});
-//
-//it('returns the correct matches', function () {
-//    $regex = FluentRegex::create("äny únicød3 character")
-//        ->uniCodeCharacter()
-//        ->matchAll();
-//
-//    expect($regex)->toBeString()
-//        ->toBe([[]]);
-//});
+it('returns the correct match', function () {
+    $regex = FluentRegex::create('äny únicød3 character')
+        ->uniCodeCharacter()
+        ->match();
+
+    expect($regex)->toBeArray()
+        ->toBe(['ä']);
+});
+
+it('returns the correct matches', function () {
+    $regex = FluentRegex::create('äny únicød3 character')
+        ->uniCodeCharacter()
+        ->matchAll();
+
+    expect($regex)->toBeArray()
+        ->toBe([['ä', 'n', 'y', ' ', 'ú', 'n', 'i', 'c', 'ø', 'd', '3', ' ', 'c', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r']]);
+});

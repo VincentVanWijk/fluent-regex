@@ -17,7 +17,7 @@ it('returns the correct regex', function () {
 
     expect($regex->get())
         ->toBeString()
-        ->toBe('/foo[ baz](bar[^a-zA-Z0-9]baz)/m');
+        ->toBe('/foo[ baz](bar[^a-zA-Z0-9]baz)/mu');
 });
 
 it('returns the correct match', function () {
@@ -65,5 +65,5 @@ it('escapes the correct characters', function () {
 
     expect($regex->get())
         ->toBeString()
-        ->toBe('/foo[ baz\!](bar\{\}[^a-zA-Z0-9]baz)/m');
+        ->toBe('/foo[ baz\!](bar\{\}[^a-zA-Z0-9]baz)/mu');
 });

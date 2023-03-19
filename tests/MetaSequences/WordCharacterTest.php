@@ -9,7 +9,7 @@ it('returns the correct regex', function () {
         ->wordCharacter()
         ->get();
 
-    expect($regex)->toBeString()->toBe('/\w/m');
+    expect($regex)->toBeString()->toBe('/\w/mu');
 });
 
 it('returns the correct regex with the not operator', function () {
@@ -17,7 +17,7 @@ it('returns the correct regex with the not operator', function () {
         ->not->wordCharacter()
         ->get();
 
-    expect($regex)->toBeString()->toBe('/\W/m');
+    expect($regex)->toBeString()->toBe('/\W/mu');
 });
 
 it('returns the correct match', function () {

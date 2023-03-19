@@ -11,7 +11,7 @@ it('returns the correct regex', function () {
         ->get();
 
     expect($regexString)->toBeString()
-        ->toBe('/./m');
+        ->toBe('/./mu');
 });
 
 it('returns the correct match', function () {
