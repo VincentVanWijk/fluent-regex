@@ -10,7 +10,7 @@ it('returns the correct regex', function () {
 
     expect($regexString)
         ->toBeString()
-        ->toBe('/[0-9]/m');
+        ->toBe('/\d/m');
 });
 
 it('returns the correct match', function () {
@@ -22,11 +22,29 @@ it('returns the correct match', function () {
         ->toBe(['1']);
 });
 
+it('returns the correct match with not operator', function () {
+    $regex = new FluentRegex('123foo bar baz FOO');
+    $match = $regex->not->digit()->match();
+
+    expect($match)
+        ->toBeArray()
+        ->toBe(['f']);
+});
+
 it('returns the correct matches', function () {
-    $regex = new FluentRegex('123 foo bar barry FOO');
+    $regex = new FluentRegex('123 foo bar FOO');
     $matches = $regex->digit()->matchAll();
 
     expect($matches)
         ->toBeArray()
         ->toBe([['1', '2', '3']]);
+});
+
+it('returns the correct matches with not operator', function () {
+    $regex = new FluentRegex('123fo o');
+    $matches = $regex->not->digit()->matchAll();
+
+    expect($matches)
+        ->toBeArray()
+        ->toBe([['f', 'o', ' ', 'o']]);
 });

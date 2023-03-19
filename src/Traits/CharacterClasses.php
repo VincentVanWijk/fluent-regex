@@ -46,28 +46,6 @@ trait CharacterClasses
     }
 
     /**
-     * @param  string|array  $tokens
-     * Matches either what is before the | or what is after it.
-     */
-    public function or(string|array ...$tokens): static
-    {
-        $or = '';
-
-        foreach ($tokens as $key => $token) {
-            /** @var string $token */
-            $or .= $this->escape($token);
-
-            if ($key !== array_key_last($tokens)) {
-                $or .= '|';
-            }
-        }
-
-        $this->addToRegex($or);
-
-        return $this;
-    }
-
-    /**
      * Matches any upper or lowercase letter. ([a-zA-Z])
      */
     public function letter(): static
@@ -93,16 +71,6 @@ trait CharacterClasses
     public function upperCaseLetter(): static
     {
         $this->addToRegex($this->not ? '[^A-Z]' : '[A-Z]');
-
-        return $this;
-    }
-
-    /**
-     * Matches ant digit. ([0-9])
-     */
-    public function digit(): static
-    {
-        $this->addToRegex($this->not ? '[^0-9]' : '[0-9]');
 
         return $this;
     }

@@ -52,5 +52,5 @@ it('works with a callback and facade', function () {
         ->oneOrMoreTimes()
         ->get();
     expect($regexString)->toBeString()
-        ->toBe('/a[\{a-z0-9]+/m');
+        ->toBe('/a[\{a-z\d]+/m');
 });
