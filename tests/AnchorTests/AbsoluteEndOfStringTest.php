@@ -9,7 +9,7 @@ it('returns the correct regex', function () {
         ->absoluteEndOfString()
         ->get();
 
-    expect($regex)->toBeString()->toBe('/\z/m');
+    expect($regex)->toBeString()->toBe('/\z/mu');
 });
 
 it('returns the correct match', function () {

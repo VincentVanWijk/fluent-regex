@@ -11,7 +11,7 @@ it('returns the correct regex', function () {
         ->get();
 
     expect($regexString)->toBeString()
-        ->toBe('/foo|bar|baz/m');
+        ->toBe('/foo|bar|baz/mu');
 });
 
 it('returns the correct match', function () {
@@ -41,5 +41,5 @@ it('escapes the correct characters', function () {
         ->get();
 
     expect($regexString)->toBeString()
-        ->toBe('/foo|bar\{\}|baz/m');
+        ->toBe('/foo|bar\{\}|baz/mu');
 });

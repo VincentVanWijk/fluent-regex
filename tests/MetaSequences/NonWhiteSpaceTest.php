@@ -9,7 +9,7 @@ it('returns the correct regex', function () {
         ->nonWhiteSpace()
         ->get();
 
-    expect($regex)->toBeString()->toBe('/\S/m');
+    expect($regex)->toBeString()->toBe('/\S/mu');
 });
 
 it('returns the correct match', function () {

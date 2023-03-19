@@ -17,7 +17,7 @@ it('can be accessed via the Facade', function () {
 
     expect($regex)
         ->toBeString()
-        ->toBe('/[bar]/m');
+        ->toBe('/[bar]/mu');
 });
 
 it('getting a random property throws an exception', function () {
@@ -70,7 +70,7 @@ it('returns a non empty string', function () {
         ->get();
 
     expect($regexString)
-        ->toBe('/bar/m');
+        ->toBe('/bar/mu');
 });
 
 it('returns the correct delimiter', function () {
@@ -79,14 +79,14 @@ it('returns the correct delimiter', function () {
         ->get();
 
     expect($regexString)
-        ->toBe('/bar/m');
+        ->toBe('/bar/mu');
 
     $regex = new FluentRegex('foo bar baz', '#');
     $regexString = $regex->exactly('b#a#r')
         ->get();
 
     expect($regexString)
-        ->toBe('#b\#a\#r#m');
+        ->toBe('#b\#a\#r#mu');
 });
 
 it('returns the correct raw regex', function () {
@@ -95,7 +95,7 @@ it('returns the correct raw regex', function () {
         ->get();
 
     expect($regexString)
-        ->toBe('/[bar]?/m');
+        ->toBe('/[bar]?/mu');
 });
 
 it('works when creating with a file', function () {
@@ -104,7 +104,7 @@ it('works when creating with a file', function () {
 
     expect($regex->get())
         ->toBeString()
-        ->toBe('/FRY/m')
+        ->toBe('/FRY/mu')
         ->and($regex->match())
         ->toBeArray()
         ->toBe(['FRY']);
@@ -125,7 +125,7 @@ it('enables multiline mode by default', function () {
 });
 
 it('can disable multiline mode', function () {
-    $regex = (new FluentRegex('foo bar baz'))->disableMultiline();
+    $regex = (new FluentRegex('foo bar baz'))->disableMultilineFlag();
 
     expect($regex->multiline)
         ->toBeBool()
@@ -133,7 +133,7 @@ it('can disable multiline mode', function () {
 
     $regex->multiline = true;
 
-    $regex->setMultiline(false);
+    $regex->setMultilineFlag(false);
 
     expect($regex->multiline)
         ->toBeBool()
@@ -141,17 +141,57 @@ it('can disable multiline mode', function () {
 });
 
 it('can enable multiline mode', function () {
-    $regex = (new FluentRegex('foo bar baz'))->disableMultiline();
-    $regex->enableMultiline();
+    $regex = (new FluentRegex('foo bar baz'))->disableMultilineFlag();
+    $regex->enableMultilineFlag();
     expect($regex->multiline)
         ->toBeBool()
         ->toBe(true);
 
     $regex->multiline = false;
 
-    $regex->setMultiline(true);
+    $regex->setMultilineFlag(true);
 
     expect($regex->multiline)
+        ->toBeBool()
+        ->toBe(true);
+});
+
+it('enables unicode mode by default', function () {
+    $regex = new FluentRegex('foo bar baz');
+
+    expect($regex->unicode)
+        ->toBeBool()
+        ->toBe(true);
+});
+
+it('can disable unicode mode', function () {
+    $regex = (new FluentRegex('foo bar baz'))->disableUnicodeFlag();
+
+    expect($regex->unicode)
+        ->toBeBool()
+        ->toBe(false);
+
+    $regex->unicode = true;
+
+    $regex->setUnicodeFlag(false);
+
+    expect($regex->unicode)
+        ->toBeBool()
+        ->toBe(false);
+});
+
+it('can enable unicode mode', function () {
+    $regex = (new FluentRegex('foo bar baz'))->disableUnicodeFlag();
+    $regex->enableUnicodeFlag();
+    expect($regex->unicode)
+        ->toBeBool()
+        ->toBe(true);
+
+    $regex->unicode = false;
+
+    $regex->setUnicodeFlag(true);
+
+    expect($regex->unicode)
         ->toBeBool()
         ->toBe(true);
 });

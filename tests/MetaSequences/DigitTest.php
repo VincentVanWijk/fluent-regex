@@ -10,7 +10,7 @@ it('returns the correct regex', function () {
 
     expect($regexString)
         ->toBeString()
-        ->toBe('/\d/m');
+        ->toBe('/\d/mu');
 });
 
 it('returns the correct match', function () {

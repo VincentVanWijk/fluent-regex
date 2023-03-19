@@ -11,7 +11,7 @@ it('returns the correct regex', function () {
         ->get();
 
     expect($regexString)->toBeString()
-        ->toBe('/[bar]/m');
+        ->toBe('/[bar]/mu');
 });
 
 it('returns the correct match', function () {
@@ -38,7 +38,7 @@ it('escapes the correct characters', function () {
         ->get();
 
     expect($regexString)->toBeString()
-        ->toBe('/[bar\{\}]/m');
+        ->toBe('/[bar\{\}]/mu');
 });
 
 it('works with a callback and facade', function () {
@@ -52,5 +52,5 @@ it('works with a callback and facade', function () {
         ->oneOrMoreTimes()
         ->get();
     expect($regexString)->toBeString()
-        ->toBe('/a[\{a-z\d]+/m');
+        ->toBe('/a[\{a-z\d]+/mu');
 });
