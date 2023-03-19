@@ -125,7 +125,7 @@ it('enables multiline mode by default', function () {
 });
 
 it('can disable multiline mode', function () {
-    $regex = (new FluentRegex('foo bar baz'))->disableMultiline();
+    $regex = (new FluentRegex('foo bar baz'))->disableMultilineFlag();
 
     expect($regex->multiline)
         ->toBeBool()
@@ -133,7 +133,7 @@ it('can disable multiline mode', function () {
 
     $regex->multiline = true;
 
-    $regex->setMultiline(false);
+    $regex->setMultilineFlag(false);
 
     expect($regex->multiline)
         ->toBeBool()
@@ -141,17 +141,57 @@ it('can disable multiline mode', function () {
 });
 
 it('can enable multiline mode', function () {
-    $regex = (new FluentRegex('foo bar baz'))->disableMultiline();
-    $regex->enableMultiline();
+    $regex = (new FluentRegex('foo bar baz'))->disableMultilineFlag();
+    $regex->enableMultilineFlag();
     expect($regex->multiline)
         ->toBeBool()
         ->toBe(true);
 
     $regex->multiline = false;
 
-    $regex->setMultiline(true);
+    $regex->setMultilineFlag(true);
 
     expect($regex->multiline)
+        ->toBeBool()
+        ->toBe(true);
+});
+
+it('enables unicode mode by default', function () {
+    $regex = new FluentRegex('foo bar baz');
+
+    expect($regex->unicode)
+        ->toBeBool()
+        ->toBe(true);
+});
+
+it('can disable unicode mode', function () {
+    $regex = (new FluentRegex('foo bar baz'))->disableUnicodeFlag();
+
+    expect($regex->unicode)
+        ->toBeBool()
+        ->toBe(false);
+
+    $regex->unicode = true;
+
+    $regex->setUnicodeFlag(false);
+
+    expect($regex->unicode)
+        ->toBeBool()
+        ->toBe(false);
+});
+
+it('can enable unicode mode', function () {
+    $regex = (new FluentRegex('foo bar baz'))->disableUnicodeFlag();
+    $regex->enableUnicodeFlag();
+    expect($regex->unicode)
+        ->toBeBool()
+        ->toBe(true);
+
+    $regex->unicode = false;
+
+    $regex->setUnicodeFlag(true);
+
+    expect($regex->unicode)
         ->toBeBool()
         ->toBe(true);
 });
