@@ -16,7 +16,7 @@ return [
     'multiLineMode' => true,
 
     /**
-     * Pattern strings are treated as UTF-16. Also causes escape sequences to match unicode charactersr.
+     * Pattern strings are treated as UTF-16. Also causes escape sequences to match unicode characters.
      */
     'unicodeMode' => true,
 ];

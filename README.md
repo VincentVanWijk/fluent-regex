@@ -37,11 +37,8 @@ $fluentRegex = FluentRegex::create("foo bar baz");
 
 You can add tokens to the regex by chaining methods on the FluentRegex object.
 
-```phpregexp
-/foo\s[bar baz]+/
-```
-
 ```php
+// /foo\s[bar baz]+/ 
 $fluentRegex->exactly("foo")
     ->whiteSpace()
     ->anyCharacterOf('bar baz')
@@ -50,45 +47,32 @@ $fluentRegex->exactly("foo")
 
 Characters that need it will be escaped automatically.
 
-```phpregexp
-/regex\!/
-```
-
 ```php
-$fluentRegex->exactly("regex!")
+// /regex\?/
+$fluentRegex->exactly("regex?")
 ```
 
 Most methods can be negated using the `not` modifier.
 
-```phpregexp
-/[a-zA-Z]/
-```
-
 ```php
+// /[a-zA-Z]/
 $fluentRegex->letter();
 ```
 
-```phpregexp
-/[^a-zA-Z]/
-```
-
 ```php
+// /[^a-zA-Z]/
 $fluentRegex->not->letter();
 ```
 
 ## Grouping
 
-Grouping constructs such as capturing groups take an anonymous function as a parameter.  
-The anonymous function takes a FluentRegex object as a parameter.  
-On this object you can continue to chain methods to create the sub-pattern for the capture group.
-
-```phpregexp
-/foo (bar baz)/
-```
+Grouping constructs such as the `capture()` method take an anonymous function as a parameter.   
+In this callback you can continue to chain methods to create the sub-pattern for the capture group.
 
 ```php
+// /foo (bar\sbaz)/
 $fluentRegex->exactly("foo ")      
-    ->capture(function (FluentRegex $regex) {
+    ->capture(function ($regex) {
          return $regex->exactly('bar') 
          ->whiteSpace()
          ->exactly('baz')       
@@ -98,21 +82,23 @@ $fluentRegex->exactly("foo ")
 ## Returning results
 
 You can call the `match()` method to return an array with the matches.  
-The first index `[0]` contains the text that matched the full pattern,
+The first index `[0]` contains the text that matched the full pattern,   
 The second index `[1]` will contain the text that matched the first subpattern, and so on.
 
 ```php
 $fluentRegex->match();
 ```
 
-Or call the `matchAll()` method to return a multidimensional array with all matches.
-The first index `[0]` is an array of full pattern matches
+---
+Or call the `matchAll()` method to return a multidimensional array with all matches.  
+The first index `[0]` is an array of full pattern matches  
 The second index `[1]` is an array of strings matched by the first subpattern, and so on.
 
 ```php
 $fluentRegex->matchAll();
 ```
 
+---
 To get the regex in its string representation, call
 
 ```php
