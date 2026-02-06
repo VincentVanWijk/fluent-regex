@@ -105,4 +105,64 @@ trait CharacterClasses
 
         return $this;
     }
+
+    /**
+     * Matches any hexadecimal digit. ([0-9A-Fa-f])
+     */
+    public function hexDigit(): static
+    {
+        $this->addToRegex($this->not ? '[^0-9A-Fa-f]' : '[0-9A-Fa-f]');
+
+        return $this;
+    }
+
+    /**
+     * Matches any punctuation character using POSIX class.
+     */
+    public function punctuation(): static
+    {
+        $this->addToRegex($this->not ? '[^[:punct:]]' : '[[:punct:]]');
+
+        return $this;
+    }
+
+    /**
+     * Matches space and tab only (not other whitespace).
+     */
+    public function blank(): static
+    {
+        $this->addToRegex($this->not ? '[^[:blank:]]' : '[[:blank:]]');
+
+        return $this;
+    }
+
+    /**
+     * Matches any control character.
+     */
+    public function controlCharacter(): static
+    {
+        $this->addToRegex($this->not ? '[^[:cntrl:]]' : '[[:cntrl:]]');
+
+        return $this;
+    }
+
+    /**
+     * Matches any visible character (non-space, non-control).
+     */
+    public function graphicCharacter(): static
+    {
+        $this->addToRegex($this->not ? '[^[:graph:]]' : '[[:graph:]]');
+
+        return $this;
+    }
+
+    /**
+     * Matches any printable character (visible characters and spaces).
+     */
+    public function printableCharacter(): static
+    {
+        $this->addToRegex($this->not ? '[^[:print:]]' : '[[:print:]]');
+
+        return $this;
+    }
 }

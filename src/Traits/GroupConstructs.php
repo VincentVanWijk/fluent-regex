@@ -95,4 +95,87 @@ trait GroupConstructs
 
         return $this;
     }
+
+    /**
+     * Creates a named capture group that can be referenced by name instead of number.
+     *
+     * @param  string  $name  The name for the capture group
+     * @param  callable  $func  Callback function to build the pattern
+     */
+    public function namedCaptureGroup(string $name, callable $func): static
+    {
+        /** @var FluentRegex $regex */
+        $regex = call_user_func($func, new self());
+        $regexString = $regex->get(withoutDelimiters: true);
+
+        $this->regex .= '(?<'.$name.'>'.$regexString.')';
+
+        return $this;
+    }
+
+    /**
+     * Creates an atomic group (possessive group) that prevents backtracking.
+     * Once the group matches, the regex engine will not backtrack into it.
+     *
+     * @param  callable  $func  Callback function to build the pattern
+     */
+    public function atomicGroup(callable $func): static
+    {
+        /** @var FluentRegex $regex */
+        $regex = call_user_func($func, new self());
+        $regexString = $regex->get(withoutDelimiters: true);
+
+        $this->regex .= '(?>'.$regexString.')';
+
+        return $this;
+    }
+
+    /**
+     * Creates a conditional pattern: if condition matches, use yes pattern, otherwise use no pattern.
+     *
+     * @param  int|string  $condition  Group number or name to check
+     * @param  callable  $yes  Pattern to use if condition matches
+     * @param  callable|null  $no  Optional pattern to use if condition doesn't match
+     */
+    public function conditional(int|string $condition, callable $yes, ?callable $no = null): static
+    {
+        /** @var FluentRegex $yesRegex */
+        $yesRegex = call_user_func($yes, new self());
+        $yesString = $yesRegex->get(withoutDelimiters: true);
+
+        if ($no !== null) {
+            /** @var FluentRegex $noRegex */
+            $noRegex = call_user_func($no, new self());
+            $noString = $noRegex->get(withoutDelimiters: true);
+            $this->regex .= '(?('.$condition.')'.$yesString.'|'.$noString.')';
+        } else {
+            $this->regex .= '(?('.$condition.')'.$yesString.')';
+        }
+
+        return $this;
+    }
+
+    /**
+     * Recurses the entire regex pattern at this point.
+     * Useful for matching nested structures.
+     */
+    public function recurse(): static
+    {
+        $this->addToRegex('(?R)');
+
+        return $this;
+    }
+
+    /**
+     * Recurses a specific capture group by its number.
+     * Useful for matching nested structures.
+     *
+     * @param  int  $groupNumber  The capture group number to recurse
+     */
+    public function recurseGroup(int $groupNumber): static
+    {
+        $this->addToRegex('(?'.$groupNumber.')');
+
+        return $this;
+    }
 }

@@ -6,24 +6,31 @@ namespace VincentVanWijk\FluentRegex;
 
 use Exception;
 use VincentVanWijk\FluentRegex\Traits\Anchors;
+use VincentVanWijk\FluentRegex\Traits\Backreferences;
 use VincentVanWijk\FluentRegex\Traits\CharacterClasses;
 use VincentVanWijk\FluentRegex\Traits\GroupConstructs;
 use VincentVanWijk\FluentRegex\Traits\MetaSequences;
+use VincentVanWijk\FluentRegex\Traits\ModeModifiers;
 use VincentVanWijk\FluentRegex\Traits\Quantifiers;
+use VincentVanWijk\FluentRegex\Traits\Substitution;
 use VincentVanWijk\FluentRegex\Traits\Tokens;
 
 /**
  * @property FluentRegex $not
  * @property FluentRegex $lazy
+ * @property FluentRegex $possessive
  */
 class FluentRegex
 {
     use Anchors;
+    use Backreferences;
     use CharacterClasses;
     use GroupConstructs;
-    use Quantifiers;
-    use Tokens;
     use MetaSequences;
+    use ModeModifiers;
+    use Quantifiers;
+    use Substitution;
+    use Tokens;
 
     public string $subject;
 
@@ -34,6 +41,8 @@ class FluentRegex
     protected bool $not = false;
 
     protected bool $lazy = false;
+
+    protected bool $possessive = false;
 
     public bool $multiline;
 
@@ -70,6 +79,12 @@ class FluentRegex
             return $this;
         }
 
+        if ($name == 'possessive') {
+            $this->possessive = true;
+
+            return $this;
+        }
+
         throw new Exception('Property $'.$name.' does not exist.');
     }
 
@@ -84,6 +99,10 @@ class FluentRegex
 
         if ($name == 'lazy') {
             throw new Exception('Cannot set value of property $lazy.');
+        }
+
+        if ($name == 'possessive') {
+            throw new Exception('Cannot set value of property $possessive.');
         }
     }
 
@@ -125,6 +144,7 @@ class FluentRegex
     {
         $this->not = false;
         $this->lazy = false;
+        $this->possessive = false;
     }
 
     protected function addToRegex(string $string): static
